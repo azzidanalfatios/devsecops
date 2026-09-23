@@ -21,7 +21,7 @@
         "cells": [
           {
             "position": {
-              "x": 449.9999999999998,
+              "x": 450,
               "y": 39.99999999999997
             },
             "size": {
@@ -57,12 +57,12 @@
           },
           {
             "position": {
-              "x": 86.24999999999994,
-              "y": 24.99999999999997
+              "x": 66.24999999999997,
+              "y": 14.999999999999972
             },
             "size": {
-              "width": 320,
-              "height": 300
+              "width": 340,
+              "height": 320
             },
             "attrs": {
               "label": {
@@ -79,10 +79,7 @@
               "description": "",
               "isTrustBoundary": true,
               "hasOpenThreats": false,
-              "crossingFlows": [
-                "16fb1fd4-f7f4-447f-9898-9d6cf355d860",
-                "54906e5e-76e2-4a67-a676-94f7dc7715ad"
-              ],
+              "crossingFlows": [],
               "containedElements": [
                 "1688c856-51d9-42bc-b301-34fee576c2f2",
                 "0c29da67-1691-4755-92ae-39d3dd7084e5",
@@ -92,8 +89,8 @@
           },
           {
             "position": {
-              "x": 100,
-              "y": 100.00000000000045
+              "x": 90,
+              "y": 100
             },
             "size": {
               "width": 100,
@@ -206,43 +203,23 @@
               "providesAuthentication": false,
               "threats": [
                 {
-                  "id": "db06a417-e2ce-494d-9751-83ffee9031d0",
-                  "title": "Akun Customer dicuri",
+                  "id": "17614cf5-07df-4ac8-8067-5329f63bd128",
+                  "title": "Memanipulasi identitas customer",
                   "status": "Open",
                   "severity": "High",
                   "type": "Spoofing",
-                  "description": "Berikan deskripsi untuk ancaman ini",
-                  "mitigation": "Berikan remediasi untuk ancaman ini atau alasan jika status adalah N/A",
+                  "description": "Berikan deskripsi untuk ancaman iniPenyerang dapat menggunakan username dan password Customer yang telah dicuri untuk menyamar sebagai Customer yang sah dan mengakses akun tersebut.\n",
+                  "mitigation": "Gunakan hashing password yang kuat, batasi percobaan login, gunakan autentikasi multi-faktor (MFA), dan terapkan batas waktu sesi login.\n",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 1,
-                  "score": ""
-                },
-                {
-                  "id": "65634aef-fe24-4df2-9994-2aafbb7a0924",
-                  "title": "Customer mendapatkan akses admin",
-                  "status": "Open",
-                  "severity": "High",
-                  "type": "Repudiation",
-                  "description": "Berikan deskripsi untuk ancaman ini",
-                  "mitigation": "Berikan remediasi untuk ancaman ini atau alasan jika status adalah N/A",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 2,
+                  "number": 7,
                   "score": ""
                 }
               ],
               "threatFrequency": {
-                "spoofing": 1,
-                "repudiation": 1
+                "spoofing": 2,
+                "repudiation": 0
               }
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
@@ -376,8 +353,8 @@
                 "text": "node.js\nREST API"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -474,18 +451,66 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "6bebffa6-72c6-48fc-8d16-a53c82772484",
+                  "title": "Penggunaan hak akses admin",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Customer dapat mencoba mengakses fungsi Admin seperti menambah, mengubah, atau menghapus produk meskipun tidak memiliki hak akses sebagai Admin.\n",
+                  "mitigation": "Terapkan Role-Based Access Control (RBAC) dan lakukan pemeriksaan role pengguna pada Node.js REST API sebelum mengizinkan akses ke endpoint Admin.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                },
+                {
+                  "id": "db145a28-a349-4181-ba67-c0fae3916fe7",
+                  "title": "Penyangkalan transaksi",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Customer dapat menyangkal bahwa dirinya pernah melakukan pemesanan karena sistem tidak memiliki pencatatan aktivitas transaksi yang cukup.\n",
+                  "mitigation": "Terapkan audit log untuk mencatat login, pembuatan pesanan, perubahan pesanan, dan perubahan status pembayaran. Log harus mencatat ID pengguna, ID pesanan, waktu, dan aktivitas yang dilakukan.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                },
+                {
+                  "id": "ee802d59-7f42-4fb2-815e-70f6ec4977d7",
+                  "title": "gangguan pada layanan",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Penyerang dapat mengirim request dalam jumlah besar ke Node.js REST API sehingga penggunaan sumber daya meningkat dan Customer yang sah tidak dapat mengakses aplikasi dengan normal.\n",
+                  "mitigation": "Terapkan rate limiting dan pembatasan request pada REST API. Pantau jumlah request dan batasi atau blokir pola lalu lintas yang tidak normal.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 1
+              }
             }
           },
           {
             "position": {
-              "x": 622,
-              "y": 60.000000000000455
+              "x": 632,
+              "y": 70.00000000000045
             },
             "size": {
               "width": 120,
@@ -496,11 +521,13 @@
                 "text": "my sql"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -597,19 +624,39 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "649f9b91-f4ef-47ba-97ad-402ac70a9987",
+                  "title": "Kebocoran informasi db",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Pihak yang tidak berwenang dapat memperoleh data sensitif seperti data pengguna, produk, pesanan, atau pembayaran yang tersimpan di MySQL Database.\n",
+                  "mitigation": "Terapkan kontrol akses database dan prinsip least privilege. Hanya Node.js REST API yang boleh memiliki akses sesuai kebutuhan terhadap database dan data sensitif harus dilindungi dari akses yang tidak sah.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
             "position": {
-              "x": 326.25,
-              "y": 119.99999999999997
+              "x": 336.25,
+              "y": 120.00000000000045
             },
             "size": {
               "width": 60,
@@ -730,7 +777,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -751,63 +799,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": [
-                "b1c47a0b-0638-4c43-a18a-27a95cfc507d"
-              ]
-            },
-            "labels": [
-              "Data Flow"
-            ],
-            "id": "16fb1fd4-f7f4-447f-9898-9d6cf355d860",
-            "source": {
-              "x": 200,
-              "y": 230
-            },
-            "target": {
-              "cell": "7c3501d9-233e-4c50-bb45-1b2d9ab7e0ca",
-              "port": "c44f26b5-cfe6-43c2-992d-78f2216e2559"
-            }
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Data Flow",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": [],
+              "threats": [
+                {
+                  "id": "ef03c2b8-1690-4b75-9f29-58e5292102b5",
+                  "title": "Manipulasi data pesanan",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Penyerang dapat mengubah data pesanan yang dikirim dari React Frontend, seperti jumlah produk atau harga, sebelum diproses oleh Node.js REST API.\n",
+                  "mitigation": "Lakukan validasi seluruh data pesanan di server. Node.js REST API harus mengambil harga produk asli dari MySQL dan menghitung total pesanan di server, bukan mempercayai harga yang dikirim dari frontend.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ],
               "trustBoundaryIds": [
                 "b7a12fc8-76f7-47f7-ac1a-6e4024a18763"
-              ]
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
             },
             "labels": [
               "Data Flow"
@@ -820,7 +839,13 @@
             "target": {
               "cell": "879b0cc9-1a54-4ac8-b881-de53dfc4ae92",
               "port": "cf44e7a5-1b15-4ee8-844e-17a0e4430e4f"
-            }
+            },
+            "vertices": [
+              {
+                "x": 430,
+                "y": 145
+              }
+            ]
           },
           {
             "shape": "flow",
@@ -899,22 +924,30 @@
               "isPublicNetwork": false,
               "protocol": "",
               "threats": [],
-              "trustBoundaryIds": [
-                "b7a12fc8-76f7-47f7-ac1a-6e4024a18763"
-              ]
+              "trustBoundaryIds": []
             },
             "labels": [
               "Data Flow"
             ],
-            "id": "8a650043-7c1e-40b1-af9e-3c0b5948e39f",
+            "id": "bb7be535-830b-427f-96b2-dfc184ef399d",
             "source": {
-              "cell": "879b0cc9-1a54-4ac8-b881-de53dfc4ae92",
-              "port": "c5ee8e5c-ea28-44d9-8e69-96de8dbdfd6d"
+              "cell": "1688c856-51d9-42bc-b301-34fee576c2f2",
+              "port": "5293b013-2d71-4ede-838a-2afb2e72fb9a"
             },
             "target": {
-              "cell": "699def7f-f5fd-40fc-8167-5c6831a036f5",
-              "port": "bb048b19-7ee4-4794-8fd1-85f135cc73d0"
-            }
+              "cell": "7c3501d9-233e-4c50-bb45-1b2d9ab7e0ca",
+              "port": "cf44e7a5-1b15-4ee8-844e-17a0e4430e4f"
+            },
+            "vertices": [
+              {
+                "x": 240,
+                "y": 130
+              },
+              {
+                "x": 280,
+                "y": 150
+              }
+            ]
           },
           {
             "shape": "flow",
@@ -952,20 +985,126 @@
             "labels": [
               "Data Flow"
             ],
-            "id": "b14ccd3e-7402-47e8-90d8-00ad5b0cf79e",
+            "id": "4b62f302-96af-4946-b808-f5256ac0e3aa",
             "source": {
-              "x": 600,
-              "y": 170
+              "cell": "0c29da67-1691-4755-92ae-39d3dd7084e5",
+              "port": "5293b013-2d71-4ede-838a-2afb2e72fb9a"
+            },
+            "target": {
+              "cell": "7c3501d9-233e-4c50-bb45-1b2d9ab7e0ca",
+              "port": "cf44e7a5-1b15-4ee8-844e-17a0e4430e4f"
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b7a12fc8-76f7-47f7-ac1a-6e4024a18763"
+              ]
+            },
+            "labels": [
+              "Data Flow"
+            ],
+            "id": "8a650043-7c1e-40b1-af9e-3c0b5948e39f",
+            "source": {
+              "cell": "879b0cc9-1a54-4ac8-b881-de53dfc4ae92",
+              "port": "c5ee8e5c-ea28-44d9-8e69-96de8dbdfd6d"
+            },
+            "target": {
+              "cell": "699def7f-f5fd-40fc-8167-5c6831a036f5",
+              "port": "bb048b19-7ee4-4794-8fd1-85f135cc73d0"
+            },
+            "vertices": [
+              {
+                "x": 750,
+                "y": 140
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": [],
+              "trustBoundaryIds": []
+            },
+            "labels": [
+              "Data Flow"
+            ],
+            "id": "8a50e4a0-974c-4c5d-8de1-53a814753b63",
+            "source": {
+              "x": 590,
+              "y": 180
             },
             "target": {
               "cell": "67494d7a-acac-4db1-bbb2-9c32717c544e",
               "port": "bb048b19-7ee4-4794-8fd1-85f135cc73d0"
-            }
+            },
+            "vertices": [
+              {
+                "x": 800,
+                "y": 230
+              }
+            ]
           },
           {
             "position": {
               "x": 642,
-              "y": 230
+              "y": 225.00000000000045
             },
             "size": {
               "width": 120,
@@ -976,11 +1115,13 @@
                 "text": "redis"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1077,13 +1218,33 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "005f45a6-ca4b-441a-93bb-8b463b6952c1",
+                  "title": "Manipulasi session dan token",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Penyerang yang berhasil mendapatkan akses tidak sah ke Redis dapat mengubah data session atau token sehingga dapat memengaruhi autentikasi pengguna atau perilaku aplikasi.\n",
+                  "mitigation": "Batasi akses Redis hanya untuk Node.js REST API, aktifkan autentikasi Redis, jangan membuka Redis ke jaringan publik, dan terapkan kontrol akses yang sesuai.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -1217,8 +1378,8 @@
                 "text": "payment gateway"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1315,64 +1476,28 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "21ce319f-8ce6-4f59-800b-c8dee3913aef",
+                  "title": "Pemalsuan respon payment gateway",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Spoofing",
+                  "description": "Penyerang dapat menyamar sebagai Payment Gateway dan mengirim status pembayaran palsu ke Node.js REST API sehingga pesanan yang sebenarnya belum dibayar dianggap sudah berhasil dibayar.\n",
+                  "mitigation": "Verifikasi signature/webhook dari Payment Gateway sebelum menerima perubahan status pembayaran. Hanya callback yang terverifikasi dari Payment Gateway yang boleh diproses.\n",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 13,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
             }
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 14,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Data Flow",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": [],
-              "trustBoundaryIds": [
-                "b1c47a0b-0638-4c43-a18a-27a95cfc507d"
-              ]
-            },
-            "labels": [
-              "Data Flow"
-            ],
-            "id": "54906e5e-76e2-4a67-a676-94f7dc7715ad",
-            "source": {
-              "x": 200,
-              "y": 130
-            },
-            "target": {
-              "cell": "7c3501d9-233e-4c50-bb45-1b2d9ab7e0ca",
-              "port": "c44f26b5-cfe6-43c2-992d-78f2216e2559"
-            },
-            "vertices": [
-              {
-                "x": 230,
-                "y": 160
-              }
-            ]
           },
           {
             "shape": "flow",
@@ -1414,8 +1539,8 @@
             ],
             "id": "6dc6eb38-be14-4765-94df-719912126735",
             "source": {
-              "x": 590,
-              "y": 180
+              "x": 600,
+              "y": 190
             },
             "target": {
               "cell": "b479af61-05eb-4a59-b82f-e6f89f3c12e2",
@@ -1427,6 +1552,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "april rustianto, M.kom",
-    "threatTop": 2
+    "threatTop": 15
   }
 }
