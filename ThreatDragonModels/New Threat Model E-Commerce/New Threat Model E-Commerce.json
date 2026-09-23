@@ -35,8 +35,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "b7a12fc8-76f7-47f7-ac1a-6e4024a18763",
             "zIndex": -1,
+            "id": "b7a12fc8-76f7-47f7-ac1a-6e4024a18763",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary",
@@ -71,8 +71,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "b1c47a0b-0638-4c43-a18a-27a95cfc507d",
             "zIndex": -1,
+            "id": "b1c47a0b-0638-4c43-a18a-27a95cfc507d",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary",
@@ -108,6 +108,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 0,
             "ports": {
               "groups": {
                 "top": {
@@ -191,7 +192,6 @@
               ]
             },
             "id": "1688c856-51d9-42bc-b301-34fee576c2f2",
-            "zIndex": 0,
             "data": {
               "type": "tm.Actor",
               "name": "user",
@@ -243,6 +243,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -326,7 +327,6 @@
               ]
             },
             "id": "0c29da67-1691-4755-92ae-39d3dd7084e5",
-            "zIndex": 1,
             "data": {
               "type": "tm.Actor",
               "name": "admin",
@@ -360,6 +360,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 4,
             "ports": {
               "groups": {
                 "top": {
@@ -443,7 +444,6 @@
               ]
             },
             "id": "879b0cc9-1a54-4ac8-b881-de53dfc4ae92",
-            "zIndex": 4,
             "data": {
               "type": "tm.Process",
               "name": "node.js\nREST API",
@@ -533,6 +533,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 9,
             "ports": {
               "groups": {
                 "top": {
@@ -616,7 +617,6 @@
               ]
             },
             "id": "a1e4fea4-48f2-4cbb-9e58-a7e4ef2035f7",
-            "zIndex": 9,
             "data": {
               "type": "tm.Store",
               "name": "my sql",
@@ -674,6 +674,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 10,
             "ports": {
               "groups": {
                 "top": {
@@ -757,7 +758,6 @@
               ]
             },
             "id": "7c3501d9-233e-4c50-bb45-1b2d9ab7e0ca",
-            "zIndex": 10,
             "data": {
               "type": "tm.Process",
               "name": "react\nfrontend",
@@ -1127,6 +1127,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 11,
             "ports": {
               "groups": {
                 "top": {
@@ -1210,7 +1211,6 @@
               ]
             },
             "id": "b479af61-05eb-4a59-b82f-e6f89f3c12e2",
-            "zIndex": 11,
             "data": {
               "type": "tm.Store",
               "name": "redis",
@@ -1268,6 +1268,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 12,
             "ports": {
               "groups": {
                 "top": {
@@ -1351,7 +1352,6 @@
               ]
             },
             "id": "699def7f-f5fd-40fc-8167-5c6831a036f5",
-            "zIndex": 12,
             "data": {
               "type": "tm.Actor",
               "name": "email service",
@@ -1385,6 +1385,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 13,
             "ports": {
               "groups": {
                 "top": {
@@ -1468,7 +1469,6 @@
               ]
             },
             "id": "67494d7a-acac-4db1-bbb2-9c32717c544e",
-            "zIndex": 13,
             "data": {
               "type": "tm.Actor",
               "name": "payment gateway",
